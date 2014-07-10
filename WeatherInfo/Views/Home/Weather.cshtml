@@ -1,0 +1,36 @@
+﻿@model WeatherInfo.Models.Weather
+@{
+    ViewBag.Title = "Weather Info";
+    WeatherInfo.Models.Weather weather = ViewBag.Weather;
+}
+
+<h2>@ViewBag.Message</h2>
+
+<div>
+    <tr>
+        <td>
+            @Html.TextBox("Weather",
+                                               @weather.City,
+                                      new { @readonly = "readonly" })
+        </td>
+    </tr>
+
+
+	<hr />
+    <dl class="dl-horizontal">
+      
+    </dl>
+</div>
+
+    <tr>
+        <td>
+            
+        </td>
+    </tr>
+
+
+    Value: @weather.City
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+    

@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="masterModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="masterModelStoreContainer">
+    <EntitySet Name="MSreplication_options" EntityType="masterModel.Store.MSreplication_options" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="spt_fallback_db" EntityType="masterModel.Store.spt_fallback_db" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="spt_fallback_dev" EntityType="masterModel.Store.spt_fallback_dev" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="spt_fallback_usg" EntityType="masterModel.Store.spt_fallback_usg" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="spt_monitor" EntityType="masterModel.Store.spt_monitor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="spt_values" EntityType="masterModel.Store.spt_values" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Prizes" EntityType="masterModel.Store.Prizes" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="MSreplication_options">
+    <Key>
+      <PropertyRef Name="optname" />
+      <PropertyRef Name="value" />
+      <PropertyRef Name="major_version" />
+      <PropertyRef Name="minor_version" />
+      <PropertyRef Name="revision" />
+      <PropertyRef Name="install_failures" />
+    </Key>
+    <Property Name="optname" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="value" Type="bit" Nullable="false" />
+    <Property Name="major_version" Type="int" Nullable="false" />
+    <Property Name="minor_version" Type="int" Nullable="false" />
+    <Property Name="revision" Type="int" Nullable="false" />
+    <Property Name="install_failures" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_fallback_db">
+    <Key>
+      <PropertyRef Name="xserver_name" />
+      <PropertyRef Name="xdttm_ins" />
+      <PropertyRef Name="xdttm_last_ins_upd" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="dbid" />
+      <PropertyRef Name="status" />
+      <PropertyRef Name="version" />
+    </Key>
+    <Property Name="xserver_name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
+    <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
+    <Property Name="xfallback_dbid" Type="smallint" Nullable="true" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="dbid" Type="smallint" Nullable="false" />
+    <Property Name="status" Type="smallint" Nullable="false" />
+    <Property Name="version" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_fallback_dev">
+    <Key>
+      <PropertyRef Name="xserver_name" />
+      <PropertyRef Name="xdttm_ins" />
+      <PropertyRef Name="xdttm_last_ins_upd" />
+      <PropertyRef Name="low" />
+      <PropertyRef Name="high" />
+      <PropertyRef Name="status" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="phyname" />
+    </Key>
+    <Property Name="xserver_name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
+    <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
+    <Property Name="xfallback_low" Type="int" Nullable="true" />
+    <Property Name="xfallback_drive" Type="char" Nullable="true" MaxLength="2" />
+    <Property Name="low" Type="int" Nullable="false" />
+    <Property Name="high" Type="int" Nullable="false" />
+    <Property Name="status" Type="smallint" Nullable="false" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="phyname" Type="varchar" Nullable="false" MaxLength="127" />
+  </EntityType>
+  <EntityType Name="spt_fallback_usg">
+    <Key>
+      <PropertyRef Name="xserver_name" />
+      <PropertyRef Name="xdttm_ins" />
+      <PropertyRef Name="xdttm_last_ins_upd" />
+      <PropertyRef Name="dbid" />
+      <PropertyRef Name="segmap" />
+      <PropertyRef Name="lstart" />
+      <PropertyRef Name="sizepg" />
+      <PropertyRef Name="vstart" />
+    </Key>
+    <Property Name="xserver_name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
+    <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
+    <Property Name="xfallback_vstart" Type="int" Nullable="true" />
+    <Property Name="dbid" Type="smallint" Nullable="false" />
+    <Property Name="segmap" Type="int" Nullable="false" />
+    <Property Name="lstart" Type="int" Nullable="false" />
+    <Property Name="sizepg" Type="int" Nullable="false" />
+    <Property Name="vstart" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_monitor">
+    <Key>
+      <PropertyRef Name="lastrun" />
+      <PropertyRef Name="cpu_busy" />
+      <PropertyRef Name="io_busy" />
+      <PropertyRef Name="idle" />
+      <PropertyRef Name="pack_received" />
+      <PropertyRef Name="pack_sent" />
+      <PropertyRef Name="connections" />
+      <PropertyRef Name="pack_errors" />
+      <PropertyRef Name="total_read" />
+      <PropertyRef Name="total_write" />
+      <PropertyRef Name="total_errors" />
+    </Key>
+    <Property Name="lastrun" Type="datetime" Nullable="false" />
+    <Property Name="cpu_busy" Type="int" Nullable="false" />
+    <Property Name="io_busy" Type="int" Nullable="false" />
+    <Property Name="idle" Type="int" Nullable="false" />
+    <Property Name="pack_received" Type="int" Nullable="false" />
+    <Property Name="pack_sent" Type="int" Nullable="false" />
+    <Property Name="connections" Type="int" Nullable="false" />
+    <Property Name="pack_errors" Type="int" Nullable="false" />
+    <Property Name="total_read" Type="int" Nullable="false" />
+    <Property Name="total_write" Type="int" Nullable="false" />
+    <Property Name="total_errors" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_values">
+    <Key>
+      <PropertyRef Name="number" />
+      <PropertyRef Name="type" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="35" />
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="type" Type="nchar" Nullable="false" MaxLength="3" />
+    <Property Name="low" Type="int" Nullable="true" />
+    <Property Name="high" Type="int" Nullable="true" />
+    <Property Name="status" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Prizes">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="35" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="masterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MSreplication_options">
+          <Key>
+            <PropertyRef Name="optname" />
+            <PropertyRef Name="value" />
+            <PropertyRef Name="major_version" />
+            <PropertyRef Name="minor_version" />
+            <PropertyRef Name="revision" />
+            <PropertyRef Name="install_failures" />
+          </Key>
+          <Property Name="optname" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="value" Type="Boolean" Nullable="false" />
+          <Property Name="major_version" Type="Int32" Nullable="false" />
+          <Property Name="minor_version" Type="Int32" Nullable="false" />
+          <Property Name="revision" Type="Int32" Nullable="false" />
+          <Property Name="install_failures" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_fallback_db">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="dbid" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="xserver_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xdttm_ins" Type="DateTime" Nullable="false" />
+          <Property Name="xdttm_last_ins_upd" Type="DateTime" Nullable="false" />
+          <Property Name="xfallback_dbid" Type="Int16" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dbid" Type="Int16" Nullable="false" />
+          <Property Name="status" Type="Int16" Nullable="false" />
+          <Property Name="version" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_fallback_dev">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="low" />
+            <PropertyRef Name="high" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="phyname" />
+          </Key>
+          <Property Name="xserver_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xdttm_ins" Type="DateTime" Nullable="false" />
+          <Property Name="xdttm_last_ins_upd" Type="DateTime" Nullable="false" />
+          <Property Name="xfallback_low" Type="Int32" />
+          <Property Name="xfallback_drive" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="low" Type="Int32" Nullable="false" />
+          <Property Name="high" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int16" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phyname" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_fallback_usg">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="dbid" />
+            <PropertyRef Name="segmap" />
+            <PropertyRef Name="lstart" />
+            <PropertyRef Name="sizepg" />
+            <PropertyRef Name="vstart" />
+          </Key>
+          <Property Name="xserver_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xdttm_ins" Type="DateTime" Nullable="false" />
+          <Property Name="xdttm_last_ins_upd" Type="DateTime" Nullable="false" />
+          <Property Name="xfallback_vstart" Type="Int32" />
+          <Property Name="dbid" Type="Int16" Nullable="false" />
+          <Property Name="segmap" Type="Int32" Nullable="false" />
+          <Property Name="lstart" Type="Int32" Nullable="false" />
+          <Property Name="sizepg" Type="Int32" Nullable="false" />
+          <Property Name="vstart" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_monitor">
+          <Key>
+            <PropertyRef Name="lastrun" />
+            <PropertyRef Name="cpu_busy" />
+            <PropertyRef Name="io_busy" />
+            <PropertyRef Name="idle" />
+            <PropertyRef Name="pack_received" />
+            <PropertyRef Name="pack_sent" />
+            <PropertyRef Name="connections" />
+            <PropertyRef Name="pack_errors" />
+            <PropertyRef Name="total_read" />
+            <PropertyRef Name="total_write" />
+            <PropertyRef Name="total_errors" />
+          </Key>
+          <Property Name="lastrun" Type="DateTime" Nullable="false" />
+          <Property Name="cpu_busy" Type="Int32" Nullable="false" />
+          <Property Name="io_busy" Type="Int32" Nullable="false" />
+          <Property Name="idle" Type="Int32" Nullable="false" />
+          <Property Name="pack_received" Type="Int32" Nullable="false" />
+          <Property Name="pack_sent" Type="Int32" Nullable="false" />
+          <Property Name="connections" Type="Int32" Nullable="false" />
+          <Property Name="pack_errors" Type="Int32" Nullable="false" />
+          <Property Name="total_read" Type="Int32" Nullable="false" />
+          <Property Name="total_write" Type="Int32" Nullable="false" />
+          <Property Name="total_errors" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_values">
+          <Key>
+            <PropertyRef Name="number" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="low" Type="Int32" />
+          <Property Name="high" Type="Int32" />
+          <Property Name="status" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="masterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MSreplication_options" EntityType="Self.MSreplication_options" />
+          <EntitySet Name="spt_fallback_db" EntityType="Self.spt_fallback_db" />
+          <EntitySet Name="spt_fallback_dev" EntityType="Self.spt_fallback_dev" />
+          <EntitySet Name="spt_fallback_usg" EntityType="Self.spt_fallback_usg" />
+          <EntitySet Name="spt_monitor" EntityType="Self.spt_monitor" />
+          <EntitySet Name="spt_values" EntityType="Self.spt_values" />
+          <EntitySet Name="Prizes" EntityType="masterModel.Prize" />
+        </EntityContainer>
+        <EntityType Name="Prize">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="35" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="masterModelStoreContainer" CdmEntityContainer="masterEntities">
+    <EntitySetMapping Name="MSreplication_options">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.MSreplication_options)">
+        <MappingFragment StoreEntitySet="MSreplication_options">
+          <ScalarProperty Name="optname" ColumnName="optname" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="major_version" ColumnName="major_version" />
+          <ScalarProperty Name="minor_version" ColumnName="minor_version" />
+          <ScalarProperty Name="revision" ColumnName="revision" />
+          <ScalarProperty Name="install_failures" ColumnName="install_failures" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="spt_fallback_db">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.spt_fallback_db)">
+        <MappingFragment StoreEntitySet="spt_fallback_db">
+          <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
+          <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
+          <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="dbid" ColumnName="dbid" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="xfallback_dbid" ColumnName="xfallback_dbid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="spt_fallback_dev">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.spt_fallback_dev)">
+        <MappingFragment StoreEntitySet="spt_fallback_dev">
+          <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
+          <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
+          <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
+          <ScalarProperty Name="low" ColumnName="low" />
+          <ScalarProperty Name="high" ColumnName="high" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phyname" ColumnName="phyname" />
+          <ScalarProperty Name="xfallback_low" ColumnName="xfallback_low" />
+          <ScalarProperty Name="xfallback_drive" ColumnName="xfallback_drive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="spt_fallback_usg">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.spt_fallback_usg)">
+        <MappingFragment StoreEntitySet="spt_fallback_usg">
+          <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
+          <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
+          <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
+          <ScalarProperty Name="dbid" ColumnName="dbid" />
+          <ScalarProperty Name="segmap" ColumnName="segmap" />
+          <ScalarProperty Name="lstart" ColumnName="lstart" />
+          <ScalarProperty Name="sizepg" ColumnName="sizepg" />
+          <ScalarProperty Name="vstart" ColumnName="vstart" />
+          <ScalarProperty Name="xfallback_vstart" ColumnName="xfallback_vstart" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="spt_monitor">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.spt_monitor)">
+        <MappingFragment StoreEntitySet="spt_monitor">
+          <ScalarProperty Name="lastrun" ColumnName="lastrun" />
+          <ScalarProperty Name="cpu_busy" ColumnName="cpu_busy" />
+          <ScalarProperty Name="io_busy" ColumnName="io_busy" />
+          <ScalarProperty Name="idle" ColumnName="idle" />
+          <ScalarProperty Name="pack_received" ColumnName="pack_received" />
+          <ScalarProperty Name="pack_sent" ColumnName="pack_sent" />
+          <ScalarProperty Name="connections" ColumnName="connections" />
+          <ScalarProperty Name="pack_errors" ColumnName="pack_errors" />
+          <ScalarProperty Name="total_read" ColumnName="total_read" />
+          <ScalarProperty Name="total_write" ColumnName="total_write" />
+          <ScalarProperty Name="total_errors" ColumnName="total_errors" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="spt_values">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.spt_values)">
+        <MappingFragment StoreEntitySet="spt_values">
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="low" ColumnName="low" />
+          <ScalarProperty Name="high" ColumnName="high" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prizes">
+      <EntityTypeMapping TypeName="IsTypeOf(masterModel.Prize)">
+        <MappingFragment StoreEntitySet="Prizes">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
