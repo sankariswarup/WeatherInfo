@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="NFL">
+  <DataContextMoniker Name="/NFLDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ad4b6ff6-8399-4137-85fd-60ea2bd25a47" absoluteBounds="4.875, 1.25, 2, 1.9631982421875">
+      <DataClassMoniker Name="/NFLDataContext/Player" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c418eb38-4986-48da-8525-aa93bb5bea65" absoluteBounds="4.89, 1.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7f6a944d-7d63-408b-b8d2-2acefa3a12aa" absoluteBounds="4, 4.125, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/NFLDataContext/Statistics" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8cf08645-bf24-4958-b892-8afd306d89fa" absoluteBounds="4.015, 4.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.4375 : 4.125); (5.4375 : 3.2131982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/NFLDataContext/Statistics/Statistic_Player" />
+      <nodes>
+        <classShapeMoniker Id="7f6a944d-7d63-408b-b8d2-2acefa3a12aa" />
+        <classShapeMoniker Id="ad4b6ff6-8399-4137-85fd-60ea2bd25a47" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="a5e637a0-8bdd-4770-8e62-a126f8ba69c9" absoluteBounds="2.125, 1, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/NFLDataContext/Team" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a8d159f6-972c-47eb-af18-e234c1ca9191" absoluteBounds="2.1399999999999997, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.4687505 : 4.125); (4.4687505 : 1.09375); (4.125 : 1.09375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/NFLDataContext/Statistics/Statistic_Team" />
+      <nodes>
+        <classShapeMoniker Id="7f6a944d-7d63-408b-b8d2-2acefa3a12aa" />
+        <classShapeMoniker Id="a5e637a0-8bdd-4770-8e62-a126f8ba69c9" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
