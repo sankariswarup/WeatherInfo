@@ -1,0 +1,66 @@
+﻿@model WeatherInfo.Models.Team
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Team</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Statistics.TeamOrPlayer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Statistics.TeamOrPlayer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamPoS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamPoS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TeamId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

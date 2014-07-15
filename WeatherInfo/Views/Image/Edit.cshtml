@@ -1,0 +1,30 @@
+﻿@model WeatherInfo.Models.Image
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    
+    <div class="form-horizontal">
+        <h4>Image</h4>
+        <hr />
+        <div class="form-group">
+            <img src='@Url.Action("Show", "Image", new { id = Model.ImageId } )' width="180" height="240"/>
+        </div>
+        
+        
+           </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

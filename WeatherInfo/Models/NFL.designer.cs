@@ -22,7 +22,7 @@ namespace WeatherInfo.Models
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="NFL")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="NFLDBContext-20140711130424")]
 	public partial class NFLDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -39,10 +39,13 @@ namespace WeatherInfo.Models
     partial void InsertTeam(Team instance);
     partial void UpdateTeam(Team instance);
     partial void DeleteTeam(Team instance);
+    partial void InsertImage(Image instance);
+    partial void UpdateImage(Image instance);
+    partial void DeleteImage(Image instance);
     #endregion
 		
 		public NFLDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["NFLConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["NFLDBContext_20140711130424ConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -94,9 +97,17 @@ namespace WeatherInfo.Models
 				return this.GetTable<Team>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Image> Images
+		{
+			get
+			{
+				return this.GetTable<Image>();
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Player")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Players")]
 	public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -140,7 +151,7 @@ namespace WeatherInfo.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int PlayerId
 		{
 			get
@@ -160,7 +171,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPoS", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerPoS", DbType="NVarChar(MAX)")]
 		public string PlayerPoS
 		{
 			get
@@ -180,7 +191,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerNumber", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerNumber", DbType="NVarChar(MAX)")]
 		public string PlayerNumber
 		{
 			get
@@ -200,7 +211,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerName", DbType="NVarChar(MAX)")]
 		public string PlayerName
 		{
 			get
@@ -220,7 +231,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerStatus", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerStatus", DbType="NVarChar(MAX)")]
 		public string PlayerStatus
 		{
 			get
@@ -264,7 +275,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistic_Player", Storage="_Statistics", ThisKey="statisticsId", OtherKey="StatisticsId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistics_Player", Storage="_Statistics", ThisKey="statisticsId", OtherKey="StatisticsId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Statistics Statistics
 		{
 			get
@@ -362,7 +373,7 @@ namespace WeatherInfo.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatisticsId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatisticsId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int StatisticsId
 		{
 			get
@@ -382,7 +393,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamOrPlayer", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamOrPlayer", DbType="NVarChar(MAX)")]
 		public string TeamOrPlayer
 		{
 			get
@@ -402,7 +413,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wins", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wins", DbType="NVarChar(MAX)")]
 		public string Wins
 		{
 			get
@@ -422,7 +433,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Losses", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Losses", DbType="NVarChar(MAX)")]
 		public string Losses
 		{
 			get
@@ -442,7 +453,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rank", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rank", DbType="NVarChar(MAX)")]
 		public string Rank
 		{
 			get
@@ -462,7 +473,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistic_Player", Storage="_Players", ThisKey="StatisticsId", OtherKey="statisticsId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistics_Player", Storage="_Players", ThisKey="StatisticsId", OtherKey="statisticsId")]
 		public EntitySet<Player> Players
 		{
 			get
@@ -475,7 +486,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistic_Team", Storage="_Teams", ThisKey="StatisticsId", OtherKey="statisticsId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistics_Team", Storage="_Teams", ThisKey="StatisticsId", OtherKey="statisticsId")]
 		public EntitySet<Team> Teams
 		{
 			get
@@ -533,7 +544,7 @@ namespace WeatherInfo.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Team")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Teams")]
 	public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -581,7 +592,7 @@ namespace WeatherInfo.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int TeamId
 		{
 			get
@@ -601,7 +612,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamPoS", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamPoS", DbType="NVarChar(MAX)")]
 		public string TeamPoS
 		{
 			get
@@ -621,7 +632,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamNumber", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamNumber", DbType="NVarChar(MAX)")]
 		public string TeamNumber
 		{
 			get
@@ -641,7 +652,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamName", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamName", DbType="NVarChar(MAX)")]
 		public string TeamName
 		{
 			get
@@ -661,7 +672,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamStatus", DbType="NVarChar(1) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamStatus", DbType="NVarChar(MAX)")]
 		public string TeamStatus
 		{
 			get
@@ -725,7 +736,7 @@ namespace WeatherInfo.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistic_Team", Storage="_Statistics", ThisKey="statisticsId", OtherKey="StatisticsId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistics_Team", Storage="_Statistics", ThisKey="statisticsId", OtherKey="StatisticsId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Statistics Statistics
 		{
 			get
@@ -755,6 +766,164 @@ namespace WeatherInfo.Models
 						this._statisticsId = default(int);
 					}
 					this.SendPropertyChanged("Statistics");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Images")]
+	public partial class Image : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ImageId;
+		
+		private string _ImageName;
+		
+		private string _ImageAlt;
+		
+		private string _ContentType;
+		
+		private byte[] _ImageData;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnImageIdChanging(int value);
+    partial void OnImageIdChanged();
+    partial void OnImageNameChanging(string value);
+    partial void OnImageNameChanged();
+    partial void OnImageAltChanging(string value);
+    partial void OnImageAltChanged();
+    partial void OnContentTypeChanging(string value);
+    partial void OnContentTypeChanged();
+    partial void OnImageDataChanging(byte[] value);
+    partial void OnImageDataChanged();
+    #endregion
+		
+		public Image()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ImageId
+		{
+			get
+			{
+				return this._ImageId;
+			}
+			set
+			{
+				if ((this._ImageId != value))
+				{
+					this.OnImageIdChanging(value);
+					this.SendPropertyChanging();
+					this._ImageId = value;
+					this.SendPropertyChanged("ImageId");
+					this.OnImageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageName", DbType="NVarChar(MAX)")]
+		public string ImageName
+		{
+			get
+			{
+				return this._ImageName;
+			}
+			set
+			{
+				if ((this._ImageName != value))
+				{
+					this.OnImageNameChanging(value);
+					this.SendPropertyChanging();
+					this._ImageName = value;
+					this.SendPropertyChanged("ImageName");
+					this.OnImageNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageAlt", DbType="NVarChar(MAX)")]
+		public string ImageAlt
+		{
+			get
+			{
+				return this._ImageAlt;
+			}
+			set
+			{
+				if ((this._ImageAlt != value))
+				{
+					this.OnImageAltChanging(value);
+					this.SendPropertyChanging();
+					this._ImageAlt = value;
+					this.SendPropertyChanged("ImageAlt");
+					this.OnImageAltChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContentType", DbType="NVarChar(MAX)")]
+		public string ContentType
+		{
+			get
+			{
+				return this._ContentType;
+			}
+			set
+			{
+				if ((this._ContentType != value))
+				{
+					this.OnContentTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ContentType = value;
+					this.SendPropertyChanged("ContentType");
+					this.OnContentTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageData", CanBeNull=false)]
+		public byte[] ImageData
+		{
+			get
+			{
+				return this._ImageData;
+			}
+			set
+			{
+				if ((this._ImageData != value))
+				{
+					this.OnImageDataChanging(value);
+					this.SendPropertyChanging();
+					this._ImageData = value;
+					this.SendPropertyChanged("ImageData");
+					this.OnImageDataChanged();
 				}
 			}
 		}

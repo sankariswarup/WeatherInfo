@@ -1,0 +1,72 @@
+﻿@model WeatherInfo.Models.Team
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Team</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Statistics.TeamOrPlayer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Statistics.TeamOrPlayer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamPoS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamPoS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeamStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

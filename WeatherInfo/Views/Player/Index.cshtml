@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WeatherInfo.Models.Player>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Statistics.TeamOrPlayer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerPoS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+             @Html.DisplayFor(modelItem => item.Statistics.TeamOrPlayer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerPoS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlayerStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PlayerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PlayerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PlayerId })|
+            @Html.ActionLink("Statistics", "Details", new { id = item.Statistics.StatisticsId })
+        </td>
+    </tr>
+}
+
+</table>

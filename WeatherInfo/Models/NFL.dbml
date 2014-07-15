@@ -1,37 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NFL" Class="NFLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\NFL.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NFLConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Player" Member="Players">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NFLDBContext-20140711130424" Class="NFLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\v11.0;AttachDbFilename=|DataDirectory|\NFLDBContext-20140711130424.mdf;Initial Catalog=NFLDBContext-20140711130424;Integrated Security=True;MultipleActiveResultSets=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NFLDBContext_20140711130424ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Players" Member="Players">
     <Type Name="Player">
-      <Column Name="PlayerId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PlayerPoS" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="PlayerNumber" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="PlayerStatus" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="PlayerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlayerPoS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PlayerNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PlayerName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PlayerStatus" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="statisticsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Statistic_Player" Member="Statistics" ThisKey="statisticsId" OtherKey="StatisticsId" Type="Statistics" IsForeignKey="true" />
+      <Association Name="Statistics_Player" Member="Statistics" ThisKey="statisticsId" OtherKey="StatisticsId" Type="Statistics" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.[Statistics]" Member="Statistics">
     <Type Name="Statistics">
-      <Column Name="StatisticsId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TeamOrPlayer" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="Wins" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="Losses" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="Rank" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Association Name="Statistic_Player" Member="Players" ThisKey="StatisticsId" OtherKey="statisticsId" Type="Player" />
-      <Association Name="Statistic_Team" Member="Teams" ThisKey="StatisticsId" OtherKey="statisticsId" Type="Team" />
+      <Column Name="StatisticsId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TeamOrPlayer" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Wins" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Losses" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Rank" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Statistics_Player" Member="Players" ThisKey="StatisticsId" OtherKey="statisticsId" Type="Player" />
+      <Association Name="Statistics_Team" Member="Teams" ThisKey="StatisticsId" OtherKey="statisticsId" Type="Team" />
     </Type>
   </Table>
-  <Table Name="dbo.Team" Member="Teams">
+  <Table Name="dbo.Teams" Member="Teams">
     <Type Name="Team">
-      <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TeamPoS" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="TeamNumber" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="TeamName" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="TeamStatus" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TeamPoS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TeamNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TeamName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TeamStatus" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="statisticsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PlayerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Statistic_Team" Member="Statistics" ThisKey="statisticsId" OtherKey="StatisticsId" Type="Statistics" IsForeignKey="true" />
+      <Association Name="Statistics_Team" Member="Statistics" ThisKey="statisticsId" OtherKey="StatisticsId" Type="Statistics" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Images" Member="Images">
+    <Type Name="Image">
+      <Column Name="ImageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImageName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageAlt" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ContentType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Member="ImageData" Type="System.Byte[]" CanBeNull="false" />
     </Type>
   </Table>
 </Database>
