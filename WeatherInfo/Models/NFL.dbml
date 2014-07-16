@@ -8,6 +8,8 @@
       <Column Name="PlayerName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PlayerStatus" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="statisticsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Member="ImageId" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Player_Image" Member="Images" ThisKey="ImageId" OtherKey="ImageId" Type="Image" />
       <Association Name="Statistics_Player" Member="Statistics" ThisKey="statisticsId" OtherKey="StatisticsId" Type="Statistics" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
@@ -40,7 +42,8 @@
       <Column Name="ImageName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ImageAlt" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ContentType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Member="ImageData" Type="System.Byte[]" CanBeNull="false" />
+      <Column Name="ImageData" Type="System.Byte[]" CanBeNull="false" />
+      <Association Name="Player_Image" Member="Player" ThisKey="ImageId" OtherKey="ImageId" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

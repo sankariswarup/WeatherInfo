@@ -125,6 +125,10 @@ namespace WeatherInfo.Models
 		
 		private int _statisticsId;
 		
+		private int _ImageId;
+		
+		private EntitySet<Image> _Images;
+		
 		private EntityRef<Statistics> _Statistics;
 		
     #region Extensibility Method Definitions
@@ -143,10 +147,13 @@ namespace WeatherInfo.Models
     partial void OnPlayerStatusChanged();
     partial void OnstatisticsIdChanging(int value);
     partial void OnstatisticsIdChanged();
+    partial void OnImageIdChanging(int value);
+    partial void OnImageIdChanged();
     #endregion
 		
 		public Player()
 		{
+			this._Images = new EntitySet<Image>(new Action<Image>(this.attach_Images), new Action<Image>(this.detach_Images));
 			this._Statistics = default(EntityRef<Statistics>);
 			OnCreated();
 		}
@@ -275,6 +282,39 @@ namespace WeatherInfo.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageId")]
+		public int ImageId
+		{
+			get
+			{
+				return this._ImageId;
+			}
+			set
+			{
+				if ((this._ImageId != value))
+				{
+					this.OnImageIdChanging(value);
+					this.SendPropertyChanging();
+					this._ImageId = value;
+					this.SendPropertyChanged("ImageId");
+					this.OnImageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_Image", Storage="_Images", ThisKey="ImageId", OtherKey="ImageId")]
+		public EntitySet<Image> Images
+		{
+			get
+			{
+				return this._Images;
+			}
+			set
+			{
+				this._Images.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Statistics_Player", Storage="_Statistics", ThisKey="statisticsId", OtherKey="StatisticsId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Statistics Statistics
 		{
@@ -327,6 +367,18 @@ namespace WeatherInfo.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Images(Image entity)
+		{
+			this.SendPropertyChanging();
+			entity.Player = this;
+		}
+		
+		private void detach_Images(Image entity)
+		{
+			this.SendPropertyChanging();
+			entity.Player = null;
 		}
 	}
 	
@@ -807,6 +859,8 @@ namespace WeatherInfo.Models
 		
 		private byte[] _ImageData;
 		
+		private EntityRef<Player> _Player;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -825,6 +879,7 @@ namespace WeatherInfo.Models
 		
 		public Image()
 		{
+			this._Player = default(EntityRef<Player>);
 			OnCreated();
 		}
 		
@@ -839,6 +894,10 @@ namespace WeatherInfo.Models
 			{
 				if ((this._ImageId != value))
 				{
+					if (this._Player.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnImageIdChanging(value);
 					this.SendPropertyChanging();
 					this._ImageId = value;
@@ -924,6 +983,40 @@ namespace WeatherInfo.Models
 					this._ImageData = value;
 					this.SendPropertyChanged("ImageData");
 					this.OnImageDataChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Player_Image", Storage="_Player", ThisKey="ImageId", OtherKey="ImageId", IsForeignKey=true)]
+		public Player Player
+		{
+			get
+			{
+				return this._Player.Entity;
+			}
+			set
+			{
+				Player previousValue = this._Player.Entity;
+				if (((previousValue != value) 
+							|| (this._Player.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Player.Entity = null;
+						previousValue.Images.Remove(this);
+					}
+					this._Player.Entity = value;
+					if ((value != null))
+					{
+						value.Images.Add(this);
+						this._ImageId = value.ImageId;
+					}
+					else
+					{
+						this._ImageId = default(int);
+					}
+					this.SendPropertyChanged("Player");
 				}
 			}
 		}

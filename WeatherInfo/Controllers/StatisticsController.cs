@@ -38,6 +38,7 @@ namespace WeatherInfo.Controllers
         // GET: /Statistics/Create
         public ActionResult Create()
         {
+            ViewBag.statisticsId = new SelectList(db.Statistics, "StatisticsId", "TeamOrPlayer");
             return View();
         }
 
@@ -54,7 +55,7 @@ namespace WeatherInfo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.statisticsId = new SelectList(db.Statistics, "StatisticsId", "TeamOrPlayer");
             return View(statistics);
         }
 
@@ -70,6 +71,7 @@ namespace WeatherInfo.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.statisticsId = new SelectList(db.Statistics, "StatisticsId", "TeamOrPlayer");
             return View(statistics);
         }
 

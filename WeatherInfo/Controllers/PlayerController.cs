@@ -12,6 +12,8 @@ namespace WeatherInfo.Controllers
 {
     public class PlayerController : Controller
     {
+        Image newImage = new Image();
+        ImageController imageCntrl = new ImageController();
         private NFLDBContext db = new NFLDBContext();
 
         // GET: /Player/
@@ -20,7 +22,54 @@ namespace WeatherInfo.Controllers
             var players = db.Players.Include(p => p.Statistics);
             return View(players.ToList());
         }
+        public ActionResult Upload(Image photo)
+        {
+           
+           
+            HttpPostedFileBase file = Request.Files["file"];
+            if (file != null)
+            {
+                newImage.ImageName = file.FileName;
+                newImage.ImageAlt = file.FileName;
+                newImage.ContentType = file.ContentType;
 
+                Int32 length = file.ContentLength;
+                byte[] tempImage = new byte[length];
+                file.InputStream.Read(tempImage, 0, length);
+                newImage.ImageData = tempImage;
+
+                imageCntrl.Create(newImage);
+                db.Images.Add(newImage);
+                db.SaveChanges();
+                //Session["ImageId"] = newImage.ImageId;
+            }
+
+            return View("Create") ;
+        }
+        private byte[] LoadImage(int id, out string type)
+        {
+            byte[] fileBytes = null;
+            string fileType = null;
+            using (NFLDBContext databaseContext = new NFLDBContext())
+            {
+                var image = databaseContext.Images.FirstOrDefault(doc => doc.ImageId == id);
+                if (image != null)
+                {
+                    fileBytes = image.ImageData;
+                    fileType = image.ImageName;
+                }
+            }
+            type = fileType;
+            return fileBytes;
+        }
+        public ActionResult Show(int? id)
+        {
+            string mime;
+            byte[] bytes = LoadImage(id.Value, out mime);
+            return File(bytes, mime);
+  
+     
+        }
         // GET: /Player/Details/5
         public ActionResult Details(int? id)
         {
@@ -29,6 +78,7 @@ namespace WeatherInfo.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Player player = db.Players.Find(id);
+            Image image = db.Images.Find(id);
             if (player == null)
             {
                 return HttpNotFound();
@@ -40,7 +90,7 @@ namespace WeatherInfo.Controllers
         public ActionResult Create()
         {
             ViewBag.statisticsId = new SelectList(db.Statistics, "StatisticsId", "TeamOrPlayer");
-            return View();
+             return View();
         }
 
         // POST: /Player/Create
@@ -48,16 +98,41 @@ namespace WeatherInfo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="PlayerId,PlayerPoS,PlayerNumber,PlayerName,PlayerStatus,statisticsId")] Player player)
+        public ActionResult Create(
+        [Bind(Include="PlayerId,PlayerPoS,PlayerNumber,PlayerName,PlayerStatus,ImageId,statisticsId")] Player player)
         {
             if (ModelState.IsValid)
             {
-                db.Players.Add(player);
+               
+               // db.Images.Add(image);
+                HttpPostedFileBase file = Request.Files["OpeningFile"];
+                if (file != null)
+                {
+                    newImage.ImageName = file.FileName;
+                    newImage.ImageAlt = file.FileName;
+                    newImage.ContentType = file.ContentType;
+
+                    Int32 length = file.ContentLength;
+                    byte[] tempImage = new byte[length];
+                    file.InputStream.Read(tempImage, 0, length);
+                    newImage.ImageData = tempImage;
+
+                    imageCntrl.Create(newImage);
+                    db.Images.Add(newImage);
+                    player.ImageId = newImage.ImageId;
+                    db.Players.Add(player);
+                    db.SaveChanges();
+                    ViewBag.ImageId = new SelectList(db.Images, "ImageId", "ImageId", newImage.ImageId);
+                    //Session["ImageId"] = newImage.ImageId;
+                }
+             
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.statisticsId = new SelectList(db.Statistics, "StatisticsId", "TeamOrPlayer", player.statisticsId);
+           //ViewBag.ImageId = new SelectList(db.Images, "ImageId", "ImageId", newImage.ImageId);
             return View(player);
         }
 
@@ -68,7 +143,9 @@ namespace WeatherInfo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Player player = db.Players.Find(id);
+            Image image = db.Images.Find(id);
             if (player == null)
             {
                 return HttpNotFound();
@@ -82,20 +159,27 @@ namespace WeatherInfo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="PlayerId,PlayerPoS,PlayerNumber,PlayerName,PlayerStatus,statisticsId")] Player player)
+        public ActionResult Edit([Bind(Include="PlayerId,PlayerPoS,PlayerNumber,PlayerName,PlayerStatus,ImageId,statisticsId")] Player player
+            )
         {
             if (ModelState.IsValid)
             {
+               
+                db.Entry(newImage).State = EntityState.Modified;
+                //player.ImageId = newImage.ImageId;
+                ViewBag.ImageId = new SelectList(db.Images, "ImageId", "ImageId", newImage.ImageId);
                 db.Entry(player).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.statisticsId = new SelectList(db.Statistics, "StatisticsId", "TeamOrPlayer", player.statisticsId);
+            ViewBag.ImageId = new SelectList(db.Images, "ImageId", "ImageId", newImage.ImageId);
             return View(player);
         }
 
         // GET: /Player/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, int? imid)
         {
             if (id == null)
             {

@@ -19,20 +19,21 @@
                 items.Add(new SelectListItem
                 {
                 Text = "Team",
-                Value = "1",
+                Value = "Team",
                  Selected = true
                 });
                 items.Add(new SelectListItem
                 {
                 Text = "Player",
-                Value = "2",
+                Value = "Palyer",
                
                 });
                 }
                 <div class="form-group">
                     @Html.LabelFor(model => model.TeamOrPlayer, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("TeamOrPlayer",items)
+                        @Html.EditorFor(model => model.TeamOrPlayer)
+                        @Html.ValidationMessageFor(model => model.TeamOrPlayer)
                 @Html.ValidationMessageFor(model => model.TeamOrPlayer)
                     </div>
                 </div>

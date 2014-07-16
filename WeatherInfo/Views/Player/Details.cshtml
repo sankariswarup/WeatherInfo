@@ -8,7 +8,12 @@
 
 <div>
     <h4>Player</h4>
-	<hr />
+    <hr />
+    <h4>Image</h4>
+    <hr />
+    <div class="form-group">
+    <img src='@Url.Action("Show", "Player", new { id = ViewBag.ImageId })' width="150" height="90" />
+</div>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Statistics.TeamOrPlayer)

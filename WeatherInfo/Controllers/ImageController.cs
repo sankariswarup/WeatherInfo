@@ -37,7 +37,7 @@ namespace WeatherInfo.Controllers
                 Create(newImage);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Create");
         }
 
 public ActionResult Show(int? id)
@@ -56,7 +56,7 @@ private byte[] LoadImage(int id, out string type)
         if (image != null)
         {
             fileBytes = image.ImageData;
-            fileType = image.ImageAlt;
+            fileType = image.ImageName;
         }
     }
     type = fileType;
@@ -95,7 +95,7 @@ private byte[] LoadImage(int id, out string type)
             {
                 db.Images.Add(image);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             return View(image);

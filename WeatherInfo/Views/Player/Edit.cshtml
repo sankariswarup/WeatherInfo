@@ -16,7 +16,11 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.PlayerId)
-
+        <h4>Image</h4>
+        <hr />
+        <div class="form-group">
+            <img src='@Url.Action("Show", "Player", new { id = Model.ImageId })' width="150" height="90" />
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.PlayerPoS, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
