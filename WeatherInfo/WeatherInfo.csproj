@@ -50,6 +50,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -177,11 +178,32 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\PrizeController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\WeatherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407111820385_InitialCreate.cs" />
+    <Compile Include="Migrations\201407111820385_InitialCreate.Designer.cs">
+      <DependentUpon>201407111820385_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407142156437_NFLDBContext.cs" />
+    <Compile Include="Migrations\201407142156437_NFLDBContext.Designer.cs">
+      <DependentUpon>201407142156437_NFLDBContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407150217069_NFLDBContext1.cs" />
+    <Compile Include="Migrations\201407150217069_NFLDBContext1.Designer.cs">
+      <DependentUpon>201407150217069_NFLDBContext1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407151729250_NFLDBContext2.cs" />
+    <Compile Include="Migrations\201407151729250_NFLDBContext2.Designer.cs">
+      <DependentUpon>201407151729250_NFLDBContext2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
@@ -197,6 +219,15 @@
     <Compile Include="Models\MSreplication_options.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NFL.cs">
+      <DependentUpon>NFL.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NFL.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NFL.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NFLDBContext.cs" />
     <Compile Include="Models\Prize.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -235,6 +266,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\NFL.mdf" />
+    <Content Include="App_Data\NFLDBContext-20140711130424.mdf" />
+    <Content Include="App_Data\NFLDBContext-20140711130424_log.ldf">
+      <DependentUpon>NFLDBContext-20140711130424.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\NFL_log.ldf">
+      <DependentUpon>NFL.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -261,6 +300,12 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
       <DependentUpon>PrizeModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\NFL.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>NFL.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\Interview.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -282,6 +327,26 @@
     <Content Include="Views\Prize\Details.cshtml" />
     <Content Include="Views\Prize\Edit.cshtml" />
     <Content Include="Views\Prize\Index.cshtml" />
+    <Content Include="Views\Statistics\Create.cshtml" />
+    <Content Include="Views\Statistics\Delete.cshtml" />
+    <Content Include="Views\Statistics\Details.cshtml" />
+    <Content Include="Views\Statistics\Edit.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Player\Create.cshtml" />
+    <Content Include="Views\Player\Delete.cshtml" />
+    <Content Include="Views\Player\Details.cshtml" />
+    <Content Include="Views\Player\Edit.cshtml" />
+    <Content Include="Views\Player\Index.cshtml" />
+    <Content Include="Views\Image\Create.cshtml" />
+    <Content Include="Views\Image\Delete.cshtml" />
+    <Content Include="Views\Image\Details.cshtml" />
+    <Content Include="Views\Image\Edit.cshtml" />
+    <Content Include="Views\Image\Index.cshtml" />
     <None Include="Web References\WeatherReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -328,7 +393,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Weather\" />
   </ItemGroup>
   <ItemGroup>
@@ -358,7 +422,27 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\NFL.dbml.layout">
+      <DependentUpon>NFL.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407111820385_InitialCreate.resx">
+      <DependentUpon>201407111820385_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407142156437_NFLDBContext.resx">
+      <DependentUpon>201407142156437_NFLDBContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407150217069_NFLDBContext1.resx">
+      <DependentUpon>201407150217069_NFLDBContext1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407151729250_NFLDBContext2.resx">
+      <DependentUpon>201407151729250_NFLDBContext2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
